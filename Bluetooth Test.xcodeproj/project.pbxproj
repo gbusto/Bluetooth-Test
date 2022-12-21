@@ -17,6 +17,8 @@
 		0337ADBF295098A100210E4D /* Bluetooth_TestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADBE295098A100210E4D /* Bluetooth_TestUITests.swift */; };
 		0337ADC1295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */; };
 		0337ADCE29509A4700210E4D /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADCD29509A4700210E4D /* BluetoothManager.swift */; };
+		03DB84C72951E5B30035A8B1 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84C62951E5B30035A8B1 /* PeripheralManager.swift */; };
+		03DB84C92952602E0035A8B1 /* CentralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84C82952602E0035A8B1 /* CentralView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		0337ADBE295098A100210E4D /* Bluetooth_TestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth_TestUITests.swift; sourceTree = "<group>"; };
 		0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth_TestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0337ADCD29509A4700210E4D /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		03DB84C62951E5B30035A8B1 /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
+		03DB84C82952602E0035A8B1 /* CentralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,13 +104,14 @@
 		0337AD9D2950989F00210E4D /* Bluetooth Test */ = {
 			isa = PBXGroup;
 			children = (
+				03DB84C52951E5920035A8B1 /* Bluetooth */,
 				0337AD9E2950989F00210E4D /* Bluetooth_TestApp.swift */,
 				0337ADA02950989F00210E4D /* ContentView.swift */,
 				0337ADA2295098A100210E4D /* Assets.xcassets */,
 				0337ADA7295098A100210E4D /* Persistence.swift */,
 				0337ADA9295098A100210E4D /* Bluetooth_Test.xcdatamodeld */,
 				0337ADA4295098A100210E4D /* Preview Content */,
-				0337ADCD29509A4700210E4D /* BluetoothManager.swift */,
+				03DB84C82952602E0035A8B1 /* CentralView.swift */,
 			);
 			path = "Bluetooth Test";
 			sourceTree = "<group>";
@@ -134,6 +139,15 @@
 				0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */,
 			);
 			path = "Bluetooth TestUITests";
+			sourceTree = "<group>";
+		};
+		03DB84C52951E5920035A8B1 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				0337ADCD29509A4700210E4D /* BluetoothManager.swift */,
+				03DB84C62951E5B30035A8B1 /* PeripheralManager.swift */,
+			);
+			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,8 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0337ADAB295098A100210E4D /* Bluetooth_Test.xcdatamodeld in Sources */,
+				03DB84C92952602E0035A8B1 /* CentralView.swift in Sources */,
 				0337ADA8295098A100210E4D /* Persistence.swift in Sources */,
 				0337ADA12950989F00210E4D /* ContentView.swift in Sources */,
+				03DB84C72951E5B30035A8B1 /* PeripheralManager.swift in Sources */,
 				0337AD9F2950989F00210E4D /* Bluetooth_TestApp.swift in Sources */,
 				0337ADCE29509A4700210E4D /* BluetoothManager.swift in Sources */,
 			);
@@ -357,7 +373,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -411,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
