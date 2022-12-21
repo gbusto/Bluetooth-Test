@@ -8,12 +8,18 @@
 import Foundation
 import CoreBluetooth
 
-class PeripheralManager: NSObject {
+class PeripheralManager: NSObject, ObservableObject {
     private var peripheralManager: CBPeripheralManager!
     
     private var createdServices: Bool = false
     
     private var services: [CBMutableService] = []
+    
+    @Published public var state: String = ""
+    
+    @Published public var isAdvertising: Bool = false
+    
+    @Published public var error: String = ""
     
     func start() {
         if peripheralManager == nil {
@@ -63,6 +69,7 @@ class PeripheralManager: NSObject {
                 CoreBluetooth.CBAdvertisementDataLocalNameKey: NSString(string: "BTDEV"),
                 CoreBluetooth.CBAdvertisementDataServiceUUIDsKey: services.map { $0.uuid }
             ])
+            self.isAdvertising = true
             print("Advertising!")
         }
         else {
@@ -73,6 +80,7 @@ class PeripheralManager: NSObject {
     func stopAdvertising() {
         if isPoweredOn() && peripheralManager.isAdvertising {
             peripheralManager.stopAdvertising()
+            self.isAdvertising = false
             print("Stopped advertising")
         }
         else {
@@ -80,29 +88,22 @@ class PeripheralManager: NSObject {
         }
     }
     
-    private func translateState(_ pState: CBManagerState) {
+    private func translateState(_ pState: CBManagerState) -> String {
         switch pState {
         case .unknown:
-            print("BT central manager state is UNKNOWN")
-            break
+            return "unknown"
         case .resetting:
-            print("BT central manager state is RESETTING")
-            break
+            return "resetting"
         case .unsupported:
-            print("BT central manager state is UNSUPPORTED")
-            break
+            return "unsupported"
         case .unauthorized:
-            print("BT central manager state is UNAUTHORIZED")
-            break
+            return "unauthorized"
         case .poweredOff:
-            print("BT central manager state is POWERED OFF")
-            break
+            return "powered off"
         case .poweredOn:
-            print("BT central manager state is POWERED ON")
-            break
+            return "powered on"
         default:
-            print("Got unknown BT central manager state int: \(pState.rawValue)")
-            break
+            return "unexpected \(pState.rawValue)"
         }
     }
 }
@@ -110,11 +111,7 @@ class PeripheralManager: NSObject {
 extension PeripheralManager: CBPeripheralManagerDelegate {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         print("[Peripheral Manager] New BT manager state")
-        translateState(peripheral.state)
-        
-        if (isPoweredOn()) {
-            addServices()
-        }
+        self.state = translateState(peripheral.state)
     }
     
     func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
@@ -123,6 +120,10 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
     
     func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
         print("[Peripheral Manager] Started advertising")
+        
+        if let err = error {
+            self.error = err.localizedDescription
+        }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {

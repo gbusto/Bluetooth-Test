@@ -17,6 +17,7 @@
 		0337ADBF295098A100210E4D /* Bluetooth_TestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADBE295098A100210E4D /* Bluetooth_TestUITests.swift */; };
 		0337ADC1295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */; };
 		0337ADCE29509A4700210E4D /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0337ADCD29509A4700210E4D /* BluetoothManager.swift */; };
+		03B7C0FA2952A58E0040D144 /* PeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B7C0F92952A58E0040D144 /* PeripheralView.swift */; };
 		03DB84C72951E5B30035A8B1 /* PeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84C62951E5B30035A8B1 /* PeripheralManager.swift */; };
 		03DB84C92952602E0035A8B1 /* CentralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DB84C82952602E0035A8B1 /* CentralView.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		0337ADBE295098A100210E4D /* Bluetooth_TestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth_TestUITests.swift; sourceTree = "<group>"; };
 		0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth_TestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0337ADCD29509A4700210E4D /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		03B7C0F92952A58E0040D144 /* PeripheralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralView.swift; sourceTree = "<group>"; };
 		03DB84C62951E5B30035A8B1 /* PeripheralManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralManager.swift; sourceTree = "<group>"; };
 		03DB84C82952602E0035A8B1 /* CentralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,14 +106,13 @@
 		0337AD9D2950989F00210E4D /* Bluetooth Test */ = {
 			isa = PBXGroup;
 			children = (
+				03B7C0F82952A5770040D144 /* Views */,
 				03DB84C52951E5920035A8B1 /* Bluetooth */,
 				0337AD9E2950989F00210E4D /* Bluetooth_TestApp.swift */,
-				0337ADA02950989F00210E4D /* ContentView.swift */,
 				0337ADA2295098A100210E4D /* Assets.xcassets */,
 				0337ADA7295098A100210E4D /* Persistence.swift */,
 				0337ADA9295098A100210E4D /* Bluetooth_Test.xcdatamodeld */,
 				0337ADA4295098A100210E4D /* Preview Content */,
-				03DB84C82952602E0035A8B1 /* CentralView.swift */,
 			);
 			path = "Bluetooth Test";
 			sourceTree = "<group>";
@@ -139,6 +140,16 @@
 				0337ADC0295098A100210E4D /* Bluetooth_TestUITestsLaunchTests.swift */,
 			);
 			path = "Bluetooth TestUITests";
+			sourceTree = "<group>";
+		};
+		03B7C0F82952A5770040D144 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0337ADA02950989F00210E4D /* ContentView.swift */,
+				03DB84C82952602E0035A8B1 /* CentralView.swift */,
+				03B7C0F92952A58E0040D144 /* PeripheralView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		03DB84C52951E5920035A8B1 /* Bluetooth */ = {
@@ -286,6 +297,7 @@
 				0337ADA12950989F00210E4D /* ContentView.swift in Sources */,
 				03DB84C72951E5B30035A8B1 /* PeripheralManager.swift in Sources */,
 				0337AD9F2950989F00210E4D /* Bluetooth_TestApp.swift in Sources */,
+				03B7C0FA2952A58E0040D144 /* PeripheralView.swift in Sources */,
 				0337ADCE29509A4700210E4D /* BluetoothManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
