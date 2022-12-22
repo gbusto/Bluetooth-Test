@@ -8,41 +8,68 @@
 import Foundation
 import SwiftUI
 
-struct CentralView: View {
+struct CentralManagerView: View {
     @ObservedObject var bluetoothManager: BluetoothManager = BluetoothManager()
 
     var body: some View {
-        VStack {
-            Text("You are now the Central/Client")
-                .font(.title)
-                .foregroundColor(.green)
-
-            Spacer()
-            
-            StatusView(status: $bluetoothManager.status)
-                        
-            CentralCommandView(bluetoothManager: bluetoothManager)
-            
-            Spacer()
-            
-            DevicesList(btManager: bluetoothManager,
-                        _devices: $bluetoothManager.devices)
-        }
-        .onAppear {
-            bluetoothManager.start()
+        NavigationView {
+            VStack {
+                Text("You are now the Central/Client")
+                    .font(.title)
+                    .foregroundColor(.green)
+                
+                CentralScanningView(isScanning: $bluetoothManager.isScanning)
+                
+                Spacer()
+                
+                CentralStateView(state: $bluetoothManager.state)
+                
+                CentralErrorView(error: $bluetoothManager.error)
+                
+                CentralCommandView(bluetoothManager: bluetoothManager)
+                
+                Spacer()
+                
+                DevicesList(btManager: bluetoothManager,
+                            _devices: $bluetoothManager.devices)
+            }
+            .onAppear {
+                bluetoothManager.start()
+            }
         }
     }
 }
 
-struct StatusView: View {
-    @Binding var status: String
+struct CentralScanningView: View {
+    @Binding var isScanning: Bool
     
     var body: some View {
-        Text(status)
+        Text(isScanning ? "Scanning" : "Not scanning")
             .font(.body)
             .foregroundColor(.red)
             .multilineTextAlignment(.center)
-            .padding()
+    }
+}
+
+struct CentralStateView: View {
+    @Binding var state: String
+    
+    var body: some View {
+        Text("Central state: \(state)")
+            .font(.body)
+            .foregroundColor(.red)
+            .multilineTextAlignment(.center)
+    }
+}
+
+struct CentralErrorView: View {
+    @Binding var error: String
+    
+    var body: some View {
+        Text("Error: \(error)")
+            .font(.body)
+            .foregroundColor(.red)
+            .multilineTextAlignment(.center)
     }
 }
 
@@ -90,16 +117,11 @@ struct DeviceView: View {
     var maxStringLength: Int = 20
     
     var body: some View {
-        HStack {
-            Text("Name: \(truncatedName(name: device.name))")
-                .foregroundColor(textColor)
-            Text("S: \(device.getServiceUUIDs().count)")
-            Text("\(device.translateRssi(_: device.rssi))")
-        }
-        .padding()
-        .onTapGesture {
-            btManager.connectToPeripheral(device.uuid)
-        }
+        NavigationLink("Name: \(truncatedName(name: device.name))",
+                       destination: PeripheralView(bluetoothManager: btManager,
+                                                   uuid: device.uuid,
+                                                   peripheralName: device.name))
+            .foregroundColor(.red)
     }
     
     func truncatedName(name: String) -> String {
@@ -114,8 +136,8 @@ struct DeviceView: View {
     }
 }
 
-struct CentralView_Previews: PreviewProvider {
+struct CentralManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        CentralView()
+        CentralManagerView()
     }
 }

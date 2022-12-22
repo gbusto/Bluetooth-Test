@@ -8,8 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct PeripheralView: View {
+struct PeripheralManagerView: View {
     @ObservedObject private var peripheralManager: PeripheralManager = PeripheralManager()
+    
+    @State var message: String = ""
     
     var body: some View {
         VStack {
@@ -18,13 +20,14 @@ struct PeripheralView: View {
                 .foregroundColor(.green)
                 .padding()
             
-            PeripheralAdvertisingView(isAdvertising: $peripheralManager.isAdvertising)
+            PeripheralManagerAdvertisingView(isAdvertising: $peripheralManager.isAdvertising)
             
-            PeripheralStateView(state: $peripheralManager.state)
+            PeripheralManagerStateView(state: $peripheralManager.state)
             
-            PeripheralErrorView(error: $peripheralManager.error)
+            PeripheralManagerErrorView(error: $peripheralManager.error)
                                     
-            PeripheralCommandView(peripheralManager: peripheralManager)
+            PeripheralManagerCommandView(peripheralManager: peripheralManager,
+                                         message: $message)
             
             Spacer()
         }
@@ -34,19 +37,29 @@ struct PeripheralView: View {
     }
 }
 
-struct PeripheralCommandView: View {
+struct PeripheralManagerCommandView: View {
     var peripheralManager: PeripheralManager
     
+    @Binding var message: String
+    
     var body: some View {
-        Button("Start Advertising", action: startBTAdvertising)
-            .buttonStyle(.bordered)
-            .foregroundColor(.blue)
-        Button("Stop Advertising", action: stopBTAdvertising)
-            .buttonStyle(.bordered)
-            .foregroundColor(.blue)
+        VStack {
+            Button("Start Advertising", action: startBTAdvertising)
+                .buttonStyle(.bordered)
+                .foregroundColor(.blue)
+            Button("Stop Advertising", action: stopBTAdvertising)
+                .buttonStyle(.bordered)
+                .foregroundColor(.blue)
+            TextField("Message", text: $message)
+                .multilineTextAlignment(.center)
+                .onSubmit {
+                    peripheralManager.updateServices(message)
+                }
+        }
     }
     
     func startBTAdvertising() {
+        peripheralManager.updateServices()
         peripheralManager.startAdvertising()
     }
     
@@ -55,7 +68,7 @@ struct PeripheralCommandView: View {
     }
 }
 
-struct PeripheralAdvertisingView: View {
+struct PeripheralManagerAdvertisingView: View {
     @Binding var isAdvertising: Bool
     
     var body: some View {
@@ -66,7 +79,7 @@ struct PeripheralAdvertisingView: View {
     }
 }
 
-struct PeripheralStateView: View {
+struct PeripheralManagerStateView: View {
     @Binding var state: String
     
     var body: some View {
@@ -77,7 +90,7 @@ struct PeripheralStateView: View {
     }
 }
 
-struct PeripheralErrorView: View {
+struct PeripheralManagerErrorView: View {
     @Binding var error: String
     
     var body: some View {
@@ -88,8 +101,8 @@ struct PeripheralErrorView: View {
     }
 }
 
-struct PeripheralView_Previews: PreviewProvider {
+struct PeripheralManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        PeripheralView()
+        PeripheralManagerView()
     }
 }
